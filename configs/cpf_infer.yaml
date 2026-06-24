@@ -1,0 +1,30 @@
+project:
+  name: cpf_edge_deploy
+  task: petct_lung_tumor_segmentation
+
+model:
+  name: CPF
+  checkpoint: weights/cpf_best.pth
+  input_size: [640, 640]
+  num_classes: 1
+  output_activation: sigmoid
+  threshold: 0.35
+
+data:
+  sample_ct: data/samples/ct.png
+  sample_pet: data/samples/pet.png
+  sample_mask: data/samples/mask.png
+
+preprocess:
+  ct_normalization: "TODO"
+  pet_normalization: "TODO"
+  resize: true
+  keep_ratio: false
+
+runtime:
+  device: cuda
+  batch_size: 1
+  precision: fp32
+
+output:
+  save_dir: outputs/torch_infer
