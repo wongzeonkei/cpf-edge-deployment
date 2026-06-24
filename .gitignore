@@ -1,0 +1,45 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.ipynb_checkpoints/
+
+# Environment
+.env
+.venv/
+conda/
+*.log
+
+# Dataset
+data/
+datasets/
+PCLT20K/
+STS/
+*.nii
+*.nii.gz
+*.dcm
+*.png
+*.jpg
+
+# Weights and engines
+weights/
+checkpoints/
+*.pth
+*.pt
+*.ckpt
+*.onnx
+*.engine
+*.plan
+*.rknn
+
+# Outputs
+outputs/
+runs/
+results/
+visualizations/
+
+# System
+.DS_Store
+.vscode/
+.idea/
