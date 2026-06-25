@@ -43,3 +43,24 @@ visualizations/
 .DS_Store
 .vscode/
 .idea/
+*.so
+build/
+*.egg-info/
+
+# Compiled extensions and build cache
+*.so
+build/
+*.egg-info/
+
+# Large/private model artifacts
+weights/
+*.pth
+*.pt
+*.ckpt
+
+# Data and outputs
+data/
+outputs/
+*.onnx
+*.engine
+*.plan
