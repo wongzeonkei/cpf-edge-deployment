@@ -81,3 +81,39 @@ Notes:
 The validation above is a small positive-sample deployment sanity check, not a full test-set evaluation.
 ONNX Runtime produces highly similar binary masks, while logits show non-negligible numerical differences.
 Large artifacts such as .pth, .onnx, .engine, .so, medical images and inference outputs are excluded from Git.
+
+### ONNX Runtime C++ Inference
+
+A minimal C++ ONNX Runtime inference demo was added.
+
+Current C++ pipeline:
+
+```text
+Python preprocessing
+    ↓
+ct.bin / pet.bin
+    ↓
+C++ ONNX Runtime inference
+    ↓
+mask_cpp.pgm
+The first C++ version uses preprocessed binary tensors as input:
+
+InputShapeFile
+CT[1, 3, 512, 512]outputs/cpp_input/ct.bin
+PET[1, 1, 512, 512]outputs/cpp_input/pet.bin
+
+C++ inference output:
+
+OutputShapeDescription
+mask_cpp.pgm[512, 512]Binary segmentation mask
+
+Current C++ result:
+
+RuntimeProviderLatency
+ONNX Runtime PythonCUDAExecutionProvider~50 ms
+ONNX Runtime C++CPU package~4686 ms
+
+Note:
+
+The current C++ demo uses the CPU ONNX Runtime release package, so its latency is not comparable to Python CUDA inference.
+This step verifies the C++ deployment workflow. CUDA/TensorRT C++ acceleration will be added in later stages.

@@ -64,3 +64,12 @@ outputs/
 *.onnx
 *.engine
 *.plan
+
+# Third-party local binaries
+third_party/
+
+# C++ build outputs
+deploy/cpp/build/
+
+# Local ONNX Runtime C++ package
+third_party/
