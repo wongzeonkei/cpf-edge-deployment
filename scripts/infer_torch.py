@@ -29,7 +29,7 @@ def load_gray_image(path, size):
 
     # TODO: replace with the exact normalization used in training.
     # Current placeholder assumes png range [0, 255].
-    img = img / 255.0
+    img = img / 255.0 * 3.2 - 1.6
 
     # [H, W] -> [1, 1, H, W]
     img = img[None, None, :, :]
