@@ -1,0 +1,5 @@
+backend,precision,source,throughput_qps,latency_mean_ms,latency_median_ms,latency_p90_ms,latency_p95_ms,latency_p99_ms,gpu_compute_mean_ms,engine_size_mib,context_gpu_mem_mib,foreground_pixels
+TensorRT,FP32,trtexec,49.0207,20.6405,20.5168,21.1924,21.5361,23.8843,19.7640,216,1905,
+TensorRT,FP16,trtexec,85.4206,11.9730,11.8750,12.3530,12.5107,14.9512,11.0956,104,961,
+TensorRT,FP32,python_real_input,,21.621,,,,,,,217,,408
+TensorRT,FP16,python_real_input,,13.064,,,,,,,105,,408

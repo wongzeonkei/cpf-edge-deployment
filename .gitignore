@@ -73,3 +73,11 @@ deploy/cpp/build/
 
 # Local ONNX Runtime C++ package
 third_party/
+
+# TensorRT artifacts
+deploy/tensorrt/engines/
+deploy/tensorrt/logs/
+outputs/trt_infer/
+outputs/trt_compare/
+*.engine
+*.plan

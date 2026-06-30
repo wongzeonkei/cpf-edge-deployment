@@ -137,3 +137,32 @@ Completed items:
 - ONNX Runtime C++ inference demo completed.
 - Python ONNX and C++ ONNX binary masks matched on the tested sample.
 
+
+## Stage 2: TensorRT FP32 / FP16 Deployment
+
+The CPF ONNX model was converted to TensorRT FP32 and FP16 engines and evaluated on an RTX 3090.
+
+### TensorRT Engine Benchmark
+
+| Backend | Precision | Source | Throughput | Mean Latency | GPU Compute | Engine Size | Context GPU Memory |
+|---|---:|---|---:|---:|---:|---:|---:|
+| TensorRT | FP32 | trtexec | 49.0207 qps | 20.6405 ms | 19.7640 ms | 216 MiB | 1905 MiB |
+| TensorRT | FP16 | trtexec | 85.4206 qps | 11.9730 ms | 11.0956 ms | 104 MiB | 961 MiB |
+
+### TensorRT Real Input Inference
+
+The TensorRT engines were also tested with real CT/PET sample inputs.
+
+| Backend | Mean Latency | Foreground Pixels |
+|---|---:|---:|
+| TensorRT FP32 | 21.621 ms | 408 |
+| TensorRT FP16 | 13.064 ms | 408 |
+
+Compared with FP32, the FP16 TensorRT engine reduced latency, engine size and context GPU memory usage.
+
+### Generated Validation Files
+
+- `docs/benchmarks/trt_benchmark_summary.csv`
+- `docs/benchmarks/stage2_backend_summary.csv`
+
+Large artifacts such as `.engine`, `.onnx`, `.pth`, inference outputs and TensorRT logs are excluded from Git.
