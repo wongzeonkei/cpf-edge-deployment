@@ -166,3 +166,49 @@ Compared with FP32, the FP16 TensorRT engine reduced latency, engine size and co
 - `docs/benchmarks/stage2_backend_summary.csv`
 
 Large artifacts such as `.engine`, `.onnx`, `.pth`, inference outputs and TensorRT logs are excluded from Git.
+
+## Stage 3: Jetson Nano B01 Edge Feasibility Validation
+
+CPF was deployed to Jetson Nano B01 for edge feasibility validation.
+
+### Jetson Environment
+
+| Item | Version |
+|---|---|
+| Device | Jetson Nano B01 |
+| L4T | R32.7.6 |
+| CUDA | 10.2 |
+| TensorRT | 8.2.1 |
+| Python | 3.6.9 |
+
+### Compatibility Issue
+
+The original ONNX model failed to build on Jetson Nano B01 because TensorRT 8.2.1 does not support the exported `LayerNormalization` operator.
+
+The original ONNX contained 105 `LayerNormalization` nodes. Re-exporting the model with opset 13 produced a Jetson-compatible ONNX model and enabled TensorRT FP16 engine construction.
+
+### Jetson TensorRT FP16 Result
+
+| Metric | Value |
+|---|---:|
+| Input size | 512×512 |
+| Engine size | ~355 MiB |
+| Mean latency | 1852.65 ms |
+| Median latency | 1852.42 ms |
+| P99 latency | 1869.86 ms |
+| Throughput | 0.539481 qps |
+| GPU compute mean | 1852.14 ms |
+| Real-input foreground pixels | 408 |
+
+### Resource Observation
+
+During steady inference, RAM usage was about `2455 / 3964 MB`, SWAP stayed around `50 / 8126 MB`, and `GR3D_FREQ` reached 99%. This indicates that CPF inference on Jetson Nano B01 is mainly GPU-compute-bound.
+
+### Conclusion
+
+CPF can run on Jetson Nano B01 after ONNX opset13 re-export and TensorRT FP16 engine rebuilding. However, the 512×512 model is not suitable for real-time inference on Nano B01 due to about 1.85 seconds latency per image. This stage is therefore reported as complex-model edge feasibility validation rather than real-time deployment.
+
+Generated validation file:
+
+- `docs/benchmarks/jetson_nano_b01_cpf_benchmark.csv`
+
